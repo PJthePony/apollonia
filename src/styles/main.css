@@ -1,0 +1,133 @@
+/* ──────────────────────────────────────────────
+   Apollonia Design System
+   Based on Tessio/Genco DS tokens — shared visual language
+   ────────────────────────────────────────────── */
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ── Tokens ── */
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-light: #cbd5e1;
+  --color-text: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-primary: #475569;
+  --color-primary-hover: #334155;
+  --color-primary-ghost: rgba(71, 85, 105, 0.06);
+  --color-accent: #f97316;
+  --color-accent-hover: #ea580c;
+  --color-accent-soft: rgba(249, 115, 22, 0.08);
+  --color-accent-border: rgba(249, 115, 22, 0.2);
+  --color-success: #059669;
+  --color-success-soft: rgba(5, 150, 105, 0.08);
+  --color-danger: #ef4444;
+  --color-danger-soft: rgba(239, 68, 68, 0.08);
+  --color-blue: #3b82f6;
+  --color-blue-soft: rgba(59, 130, 246, 0.08);
+  --color-purple: #8b5cf6;
+  --color-purple-soft: rgba(139, 92, 246, 0.08);
+  --color-warm: #f59e0b;
+  --color-warm-soft: rgba(245, 158, 11, 0.08);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+}
+
+/* ── Base ── */
+html {
+  font-size: 18px;
+}
+
+@media (min-width: 641px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* ── Utility ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Health Colors ── */
+.health-good { color: var(--color-success); }
+.health-fair { color: var(--color-warm); }
+.health-poor { color: var(--color-danger); }
+.health-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.health-dot.good { background: var(--color-success); }
+.health-dot.fair { background: var(--color-warm); }
+.health-dot.poor { background: var(--color-danger); }
+
+/* ── Category Badges ── */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+}
+.category-badge.personal { background: var(--color-blue-soft); color: var(--color-blue); }
+.category-badge.professional { background: var(--color-accent-soft); color: var(--color-accent); }
+.category-badge.family { background: var(--color-purple-soft); color: var(--color-purple); }
+.category-badge.acquaintance { background: var(--color-primary-ghost); color: var(--color-text-secondary); }
+
+/* ── Reminder Type Badges ── */
+.reminder-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.reminder-badge.birthday { background: var(--color-purple-soft); color: var(--color-purple); }
+.reminder-badge.anniversary { background: var(--color-purple-soft); color: var(--color-purple); }
+.reminder-badge.favor { background: var(--color-accent-soft); color: var(--color-accent); }
+.reminder-badge.milestone { background: var(--color-blue-soft); color: var(--color-blue); }
+.reminder-badge.check_in { background: var(--color-warm-soft); color: var(--color-warm); }
+.reminder-badge.dinner { background: var(--color-success-soft); color: var(--color-success); }
