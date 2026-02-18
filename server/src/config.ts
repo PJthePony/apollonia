@@ -13,6 +13,8 @@ const envSchema = z.object({
   ANTHROPIC_API_KEY: z.string().startsWith("sk-ant-"),
   TESSIO_API_URL: z.string().url().optional(),
   TESSIO_SERVICE_KEY: z.string().startsWith("tsvc_").optional(),
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
   GENCO_API_URL: z.string().url().optional(),
   PORT: z.coerce.number().default(3002),
   APP_URL: z.string().url().default("http://localhost:3002"),

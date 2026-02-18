@@ -74,6 +74,15 @@ export function useContacts() {
     })
   }
 
+  async function importGoogleContacts() {
+    const data = await api('/import/google-contacts', { method: 'POST' })
+    // Refresh contacts list after import
+    if (data.imported > 0) {
+      await fetchContacts()
+    }
+    return data
+  }
+
   return {
     contacts,
     loading,
@@ -86,5 +95,6 @@ export function useContacts() {
     updatePreferences,
     addFact,
     removeFact,
+    importGoogleContacts,
   }
 }

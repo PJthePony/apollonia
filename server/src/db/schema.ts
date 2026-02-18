@@ -31,6 +31,7 @@ export const networkContacts = pgTable(
     threadStatus: text("thread_status"),
     gmailThreadId: text("gmail_thread_id"),
     lastSubject: text("last_subject"),
+    phoneNumber: text("phone_number"),
     addedAt: timestamp("added_at", { withTimezone: true }).notNull().defaultNow(),
     notes: text("notes"),
   },
@@ -76,6 +77,23 @@ export const senderSummaries = pgTable(
   (table) => [
     uniqueIndex("idx_sender_summaries_user_email").on(table.userId, table.senderEmail),
     index("idx_sender_summaries_user").on(table.userId),
+  ],
+);
+
+export const gmailConnections = pgTable(
+  "gmail_connections",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: text("user_id").notNull(),
+    gmailAddress: text("gmail_address").notNull(),
+    googleTokens: jsonb("google_tokens").notNull(),
+    lastHistoryId: text("last_history_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("idx_gmail_connections_user").on(table.userId),
+    index("idx_gmail_connections_email").on(table.gmailAddress),
   ],
 );
 

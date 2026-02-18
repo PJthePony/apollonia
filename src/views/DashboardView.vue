@@ -7,11 +7,13 @@ import AppHeader from '../components/AppHeader.vue'
 import ContactCard from '../components/ContactCard.vue'
 import ReminderCard from '../components/ReminderCard.vue'
 
-const { contacts, loading: contactsLoading, searchQuery, categoryFilter, filteredContacts, fetchContacts } = useContacts()
+const { contacts, loading: contactsLoading, searchQuery, categoryFilter, filteredContacts, fetchContacts, importGoogleContacts } = useContacts()
 const { reminders, loading: remindersLoading, fetchReminders, sendToTessio, dismiss, snooze } = useReminders()
 
 const stats = ref(null)
 const statsLoading = ref(true)
+const importing = ref(false)
+const importResult = ref(null)
 
 async function loadDashboard() {
   await Promise.all([
@@ -48,6 +50,21 @@ async function handleSnooze(id, preset) {
     await snooze(id, preset)
   } catch (err) {
     console.error('Failed to snooze:', err)
+  }
+}
+
+async function handleImport() {
+  importing.value = true
+  importResult.value = null
+  try {
+    const data = await importGoogleContacts()
+    importResult.value = data
+    // Refresh stats after import
+    api('/dashboard').then(data => { stats.value = data })
+  } catch (err) {
+    importResult.value = { error: err.message || 'Import failed' }
+  } finally {
+    importing.value = false
   }
 }
 
@@ -99,7 +116,17 @@ onMounted(loadDashboard)
 
       <!-- Contacts Section -->
       <section class="section">
-        <h2 class="section-title">Your Network</h2>
+        <div class="section-header">
+          <h2 class="section-title">Your Network</h2>
+          <button class="import-btn" @click="handleImport" :disabled="importing">
+            {{ importing ? 'Importing...' : 'Import Google Contacts' }}
+          </button>
+        </div>
+        <div v-if="importResult" class="import-result" :class="{ error: importResult.error }">
+          <template v-if="importResult.error">{{ importResult.error }}</template>
+          <template v-else>Imported {{ importResult.imported }} new contacts ({{ importResult.skipped }} already existed)</template>
+          <button class="dismiss-result" @click="importResult = null">&times;</button>
+        </div>
 
         <div class="filters-row">
           <input
@@ -283,5 +310,72 @@ onMounted(loadDashboard)
   padding: 48px 20px;
   color: var(--color-text-muted);
   font-size: 0.85rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-header .section-title {
+  margin-bottom: 0;
+}
+
+.import-btn {
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.import-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: white;
+}
+
+.import-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.import-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  background: #edf7ed;
+  color: #2e6e2e;
+  border: 1px solid #c3e6c3;
+}
+
+.import-result.error {
+  background: #f5e8e8;
+  color: var(--color-danger);
+  border-color: #e8c3c3;
+}
+
+.dismiss-result {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  padding: 0 4px;
+}
+
+.dismiss-result:hover {
+  opacity: 1;
 }
 </style>

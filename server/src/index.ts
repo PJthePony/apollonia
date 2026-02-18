@@ -7,6 +7,7 @@ import { contactRoutes } from "./routes/contacts.js";
 import { relationshipRoutes } from "./routes/relationships.js";
 import { reminderRoutes } from "./routes/reminders.js";
 import { dashboardRoutes } from "./routes/dashboard.js";
+import { importRoutes } from "./routes/import.js";
 import { startScheduler } from "./services/scheduler.js";
 
 const app = new Hono();
@@ -48,6 +49,7 @@ app.route("/contacts", contactRoutes);
 app.route("/relationships", relationshipRoutes);
 app.route("/reminders", reminderRoutes);
 app.route("/dashboard", dashboardRoutes);
+app.route("/import", importRoutes);
 
 serve({ fetch: app.fetch, port: env.PORT }, (info) => {
   console.log(`Apollonia is running on http://localhost:${info.port}`);
