@@ -65,7 +65,7 @@ const goHome = () => router.push({ name: 'Dashboard' })
 .header-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 16px;
 }
 
 .header-btn {
@@ -92,6 +92,10 @@ const goHome = () => router.push({ name: 'Dashboard' })
 @media (max-width: 768px) {
   .app-header {
     padding: 12px 16px;
+  }
+
+  .header-right {
+    gap: 8px;
   }
 
   .header-btn {
