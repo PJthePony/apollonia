@@ -194,4 +194,20 @@ const typeLabels = {
 .snooze-options button:hover {
   background: var(--color-bg);
 }
+
+@media (max-width: 640px) {
+  .reminder-actions {
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .snooze-options button {
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+}
 </style>

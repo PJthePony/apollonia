@@ -378,4 +378,33 @@ onMounted(loadDashboard)
 .dismiss-result:hover {
   opacity: 1;
 }
+
+@media (max-width: 640px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-input {
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .import-btn {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+}
 </style>

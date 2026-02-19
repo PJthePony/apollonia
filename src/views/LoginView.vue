@@ -90,4 +90,19 @@ const handleSubmit = async () => {
 .login-legal { display: flex; justify-content: center; gap: 16px; margin-top: 24px; }
 .login-legal a { font-size: 11px; color: var(--color-text-muted); text-decoration: none; transition: color 0.2s; }
 .login-legal a:hover { color: var(--color-primary); }
+
+@media (max-width: 640px) {
+  .login-card {
+    padding: 24px 20px;
+  }
+
+  .form-group input {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .login-btn {
+    min-height: 44px;
+  }
+}
 </style>

@@ -279,7 +279,7 @@ onMounted(load)
 .facts-list { list-style: none; }
 .fact-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--color-border); }
 .fact-item:last-child { border-bottom: none; }
-.fact-text { flex: 1; font-size: 0.82rem; }
+.fact-text { flex: 1; font-size: 0.82rem; min-width: 0; }
 .fact-date { font-size: 0.7rem; color: var(--color-text-muted); }
 .fact-source { font-size: 0.65rem; color: var(--color-text-muted); font-style: italic; }
 .remove-btn { background: none; border: none; color: var(--color-text-muted); font-size: 0.7rem; padding: 2px 4px; }
@@ -296,4 +296,82 @@ onMounted(load)
 .bar-fill { height: 100%; background: var(--color-accent); border-radius: 3px; transition: width 0.3s ease; }
 
 .loading { text-align: center; padding: 48px; color: var(--color-text-muted); }
+
+@media (max-width: 640px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-meta {
+    justify-content: center;
+  }
+
+  .profile-badges {
+    justify-content: center;
+  }
+
+  .profile-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .profile-meta span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .back-btn {
+    min-height: 44px;
+    padding: 10px 0;
+  }
+
+  .edit-btn {
+    min-height: 44px;
+    padding: 10px 8px;
+  }
+
+  .save-btn {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+
+  .remove-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-input, .form-select {
+    min-height: 44px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .edit-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-row {
+    width: 100%;
+  }
+
+  .fact-item {
+    flex-wrap: wrap;
+  }
+
+  .fact-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 </style>

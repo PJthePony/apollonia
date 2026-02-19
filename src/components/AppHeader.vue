@@ -82,4 +82,24 @@ const goHome = () => router.push({ name: 'Dashboard' })
 .sign-out-btn:hover {
   background: var(--color-border);
 }
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 14px 16px;
+  }
+
+  .header-email {
+    display: none;
+  }
+
+  .sign-out-btn {
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+
+  .header-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
 </style>

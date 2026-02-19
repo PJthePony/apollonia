@@ -106,4 +106,22 @@ const goToContact = () => {
   color: var(--color-text-muted);
   flex-shrink: 0;
 }
+
+@media (max-width: 640px) {
+  .contact-card {
+    min-height: 44px;
+  }
+
+  .contact-meta {
+    flex-wrap: wrap;
+  }
+
+  .contact-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
 </style>
