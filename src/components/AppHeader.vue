@@ -26,9 +26,9 @@ const goHome = () => router.push({ name: 'Dashboard' })
 
 <style scoped>
 .app-header {
-  background: var(--color-surface);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  padding: 14px 20px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +73,7 @@ const goHome = () => router.push({ name: 'Dashboard' })
   height: 34px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: var(--color-bg);
   color: var(--color-text-secondary);
   cursor: pointer;
   display: flex;
@@ -85,17 +85,16 @@ const goHome = () => router.push({ name: 'Dashboard' })
 
 .header-btn:hover,
 .header-btn:active {
-  background: var(--color-bg);
+  background: var(--color-surface);
   color: var(--color-text);
 }
 
-@media (max-width: 640px) {
-  .header-btn {
-    width: 44px;
-    height: 44px;
+@media (max-width: 768px) {
+  .app-header {
+    padding: 12px 16px;
   }
 
-  .header-icon {
+  .header-btn {
     width: 44px;
     height: 44px;
   }
