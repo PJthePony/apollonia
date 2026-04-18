@@ -5,7 +5,7 @@
     "buildCommand": "rm -rf dist && npm run build"
   },
   "deploy": {
-    "startCommand": "npm start",
+    "startCommand": "npx tsx src/index.ts",
     "healthcheckPath": "/health",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3

@@ -1,75 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
 /* ──────────────────────────────────────────────
-   Apollonia Design System
-   Based on Tessio/Genco DS tokens — shared visual language
+   Apollonia — built on the tanzillo.ai design system.
+   Palette locked to fuchsia / teal / navy / sage.
+   Extended warmth via mulberry + viridian / persimmon / wine.
    ────────────────────────────────────────────── */
+
+@theme {
+  /* ── Design-system primitives ── */
+  --color-fuchsia: #D4246F;
+  --color-teal: #0D5C52;
+  --color-navy: #142235;
+  --color-sage: #F0F5F3;
+
+  --color-fuchsia-50: #FAE8F1;
+  --color-fuchsia-100: #F3B4D2;
+  --color-fuchsia-600: #D4246F;
+  --color-fuchsia-800: #A01A54;
+  --color-fuchsia-900: #6A1038;
+
+  --color-teal-50: #D4EFEC;
+  --color-teal-400: #239085;
+  --color-teal-600: #0D5C52;
+  --color-teal-800: #09403A;
+
+  --color-navy-50: #D6DEE9;
+  --color-navy-100: #9BAAC1;
+  --color-navy-200: #5E7189;
+  --color-navy-400: #334A66;
+  --color-navy-600: #142235;
+  --color-navy-800: #0C172A;
+
+  --color-sage-50: #FFFFFF;
+  --color-sage-100: #F8FBF9;
+  --color-sage-200: #F0F5F3;
+  --color-sage-400: #E0EDEA;
+  --color-sage-600: #C4D9D5;
+  --color-sage-800: #8CAAA5;
+
+  /* ── Legacy token aliases — views still reference these ── */
+  --color-bg: #F8FBF9;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F8FBF9;
+  --color-border: rgba(20, 34, 53, 0.08);
+  --color-border-light: rgba(20, 34, 53, 0.16);
+  --color-text: #142235;
+  --color-text-secondary: #334A66;
+  --color-text-muted: #5E7189;
+
+  --color-primary: #0D5C52;          /* teal — structural */
+  --color-primary-hover: #09403A;
+  --color-primary-ghost: rgba(20, 34, 53, 0.04);
+
+  --color-accent: #D4246F;           /* fuchsia — signal */
+  --color-accent-hover: #A01A54;
+  --color-accent-soft: rgba(212, 36, 111, 0.08);
+  --color-accent-border: rgba(212, 36, 111, 0.2);
+
+  --color-success: #2B8A6E;          /* viridian */
+  --color-success-soft: rgba(43, 138, 110, 0.10);
+  --color-danger: #A83A4A;           /* wine */
+  --color-danger-soft: rgba(168, 58, 74, 0.10);
+  --color-warm: #D0682A;             /* persimmon */
+  --color-warm-soft: rgba(208, 104, 42, 0.10);
+
+  --color-blue: #3B5A8C;             /* azure */
+  --color-blue-soft: rgba(59, 90, 140, 0.10);
+  --color-purple: #7E3E9E;           /* violet */
+  --color-purple-soft: rgba(126, 62, 158, 0.10);
+
+  --color-mulberry: #B43A5F;         /* extended warm */
+
+  /* ── Radii (restrained) ── */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-full: 999px;
+
+  /* ── Suspension shadows ── */
+  --shadow-sm: 0 1px 2px rgba(20, 34, 53, 0.04), 0 2px 6px rgba(20, 34, 53, 0.04);
+  --shadow-md: 0 2px 4px rgba(20, 34, 53, 0.04), 0 8px 24px rgba(20, 34, 53, 0.08);
+  --shadow-lg: 0 4px 8px rgba(20, 34, 53, 0.06), 0 24px 48px rgba(20, 34, 53, 0.12);
+  --shadow-suspend: 0 18px 24px -16px rgba(20, 34, 53, 0.35);
+
+  /* ── Typefaces ── */
+  --font-sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── Motion tokens ── */
+  --ease-settle: cubic-bezier(0.34, 1.35, 0.64, 1);
+  --ease-pendulum: cubic-bezier(0.37, 0, 0.22, 1.15);
+  --ease-curtain: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 420ms;
+  --dur-4: 700ms;
+}
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 button { cursor: pointer; font-family: inherit; }
 
-/* ── Tokens ── */
-:root {
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-surface-elevated: #ffffff;
-  --color-border: #e2e8f0;
-  --color-border-light: #cbd5e1;
-  --color-text: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
-  --color-primary: #475569;
-  --color-primary-hover: #334155;
-  --color-primary-ghost: rgba(71, 85, 105, 0.06);
-  --color-accent: #f97316;
-  --color-accent-hover: #ea580c;
-  --color-accent-soft: rgba(249, 115, 22, 0.08);
-  --color-accent-border: rgba(249, 115, 22, 0.2);
-  --color-success: #059669;
-  --color-success-soft: rgba(5, 150, 105, 0.08);
-  --color-danger: #ef4444;
-  --color-danger-soft: rgba(239, 68, 68, 0.08);
-  --color-blue: #3b82f6;
-  --color-blue-soft: rgba(59, 130, 246, 0.08);
-  --color-purple: #8b5cf6;
-  --color-purple-soft: rgba(139, 92, 246, 0.08);
-  --color-warm: #f59e0b;
-  --color-warm-soft: rgba(245, 158, 11, 0.08);
-
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
-  --radius-full: 9999px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
-}
-
 /* ── Base ── */
 html {
   font-size: 20px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (min-width: 641px) {
-  html {
-    font-size: 16px;
-  }
+  html { font-size: 16px; }
 }
 
 body {
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.55;
+  letter-spacing: -0.005em;
+  font-feature-settings: "ss01", "ss02", "kern", "liga";
+  hanging-punctuation: first last;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  letter-spacing: -0.01em;
 }
 
-#app {
-  min-height: 100vh;
+#app { min-height: 100vh; }
+
+::selection {
+  background: var(--color-fuchsia-100);
+  color: var(--color-fuchsia-900);
+}
+
+/* ── Editorial type utilities (used where Fraunces is wanted) ── */
+.serif {
+  font-family: var(--font-serif);
+  font-variation-settings: 'opsz' 36, 'WONK' 0;
+  letter-spacing: -0.02em;
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-variation-settings: 'opsz' 48, 'WONK' 1;
+  letter-spacing: -0.025em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 /* ── Utility ── */
@@ -85,10 +174,40 @@ body {
   border: 0;
 }
 
-/* ── Health Colors ── */
-.health-good { color: var(--color-success); }
-.health-fair { color: var(--color-warm); }
-.health-poor { color: var(--color-danger); }
+/* ── Tier Badges ── */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+}
+.tier-badge.core { background: var(--color-accent-soft); color: var(--color-accent); }
+.tier-badge.active { background: var(--color-success-soft); color: var(--color-success); }
+.tier-badge.dormant { background: var(--color-primary-ghost); color: var(--color-text-muted); }
+.tier-badge.archived { background: var(--color-primary-ghost); color: var(--color-text-muted); opacity: 0.6; }
+
+/* ── Type Badges ── */
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+}
+.type-badge.mentor, .type-badge.mentee { background: var(--color-purple-soft); color: var(--color-purple); }
+.type-badge.peer { background: var(--color-blue-soft); color: var(--color-blue); }
+.type-badge.vc, .type-badge.founder { background: var(--color-accent-soft); color: var(--color-accent); }
+.type-badge.advisor { background: var(--color-success-soft); color: var(--color-success); }
+.type-badge.operator { background: var(--color-warm-soft); color: var(--color-warm); }
+
+/* ── Health Indicators ── */
 .health-dot {
   display: inline-block;
   width: 8px;
@@ -99,35 +218,57 @@ body {
 .health-dot.fair { background: var(--color-warm); }
 .health-dot.poor { background: var(--color-danger); }
 
-/* ── Category Badges ── */
-.category-badge {
+/* ── Interaction Type Icons ── */
+.interaction-icon {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+.interaction-icon.email { background: var(--color-blue-soft); color: var(--color-blue); }
+.interaction-icon.text { background: var(--color-success-soft); color: var(--color-success); }
+.interaction-icon.linkedin_message { background: var(--color-blue-soft); color: var(--color-blue); }
+.interaction-icon.meeting { background: var(--color-accent-soft); color: var(--color-accent); }
+.interaction-icon.coffee { background: var(--color-warm-soft); color: var(--color-warm); }
+.interaction-icon.call { background: var(--color-success-soft); color: var(--color-success); }
+.interaction-icon.event { background: var(--color-purple-soft); color: var(--color-purple); }
+.interaction-icon.intro_made, .interaction-icon.intro_received { background: var(--color-accent-soft); color: var(--color-accent); }
+
+/* ── Source Badges ── */
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 0.6rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  background: var(--color-primary-ghost);
+  color: var(--color-text-muted);
   text-transform: capitalize;
 }
-.category-badge.personal { background: var(--color-blue-soft); color: var(--color-blue); }
-.category-badge.professional { background: var(--color-accent-soft); color: var(--color-accent); }
-.category-badge.family { background: var(--color-purple-soft); color: var(--color-purple); }
-.category-badge.acquaintance { background: var(--color-primary-ghost); color: var(--color-text-secondary); }
 
-/* ── Reminder Type Badges ── */
-.reminder-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-.reminder-badge.birthday { background: var(--color-purple-soft); color: var(--color-purple); }
-.reminder-badge.anniversary { background: var(--color-purple-soft); color: var(--color-purple); }
-.reminder-badge.favor { background: var(--color-accent-soft); color: var(--color-accent); }
-.reminder-badge.milestone { background: var(--color-blue-soft); color: var(--color-blue); }
-.reminder-badge.check_in { background: var(--color-warm-soft); color: var(--color-warm); }
-.reminder-badge.dinner { background: var(--color-success-soft); color: var(--color-success); }
+/* ── Avatar tints — pulled into the berry-arc palette ── */
+.avatar-blue { background: #3B5A8C; }
+.avatar-orange { background: #B43A5F; }
+.avatar-green { background: #2B8A6E; }
+.avatar-purple { background: #7E3E9E; }
+.avatar-red { background: #A83A4A; }
+.avatar-teal { background: #239085; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-sage-600); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-sage-800); }
+
+/* ── Transitions ── */
+.fade-enter-active, .fade-leave-active { transition: opacity var(--dur-2) var(--ease-out-expo); }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+.slide-up-enter-active, .slide-up-leave-active { transition: all var(--dur-3) var(--ease-out-expo); }
+.slide-up-enter-from { opacity: 0; transform: translateY(10px); }
+.slide-up-leave-to { opacity: 0; transform: translateY(-6px); }

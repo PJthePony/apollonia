@@ -1,76 +1,83 @@
-/**
- * Format a date as "X days ago" or "today" or "yesterday"
- */
-export function daysAgoText(dateStr) {
-  if (!dateStr) return 'never'
-  const date = new Date(dateStr)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-
-  if (days === 0) return 'today'
-  if (days === 1) return 'yesterday'
-  if (days < 30) return `${days}d ago`
-  if (days < 365) return `${Math.floor(days / 30)}mo ago`
-  return `${Math.floor(days / 365)}y ago`
-}
-
-/**
- * Get initials from a display name
- */
 export function initials(name) {
   if (!name) return '?'
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map(w => w[0].toUpperCase())
-    .join('')
+  return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('')
 }
 
-/**
- * Get a consistent avatar color class from a string
- */
+const AVATAR_COLORS = ['avatar-blue', 'avatar-orange', 'avatar-green', 'avatar-purple', 'avatar-red', 'avatar-teal']
+
 export function avatarColor(str) {
-  if (!str) return 'avatar-gray'
-  const colors = ['avatar-blue', 'avatar-orange', 'avatar-green', 'avatar-purple', 'avatar-red']
+  if (!str) return AVATAR_COLORS[0]
   let hash = 0
   for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash)
+    hash = ((hash << 5) - hash) + str.charCodeAt(i)
+    hash |= 0
   }
-  return colors[Math.abs(hash) % colors.length]
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length]
 }
 
-/**
- * Get health level from score
- */
-export function healthLevel(score) {
+export function healthLabel(score) {
   if (score == null) return null
-  if (score >= 0.7) return 'good'
-  if (score >= 0.4) return 'fair'
+  if (score >= 70) return 'good'
+  if (score >= 40) return 'fair'
   return 'poor'
 }
 
-/**
- * Format a trend into a display string
- */
-export function trendLabel(trend) {
-  if (trend === 'warming') return 'warming up'
-  if (trend === 'cooling') return 'going cold'
-  return 'stable'
+export function healthColor(score) {
+  if (score >= 70) return 'var(--color-success)'
+  if (score >= 40) return 'var(--color-warm)'
+  return 'var(--color-danger)'
 }
 
-/**
- * Compute snooze date from a preset
- */
-export function snoozeDate(preset) {
-  const d = new Date()
-  switch (preset) {
-    case '3d': d.setDate(d.getDate() + 3); break
-    case '1w': d.setDate(d.getDate() + 7); break
-    case '2w': d.setDate(d.getDate() + 14); break
-    case '1mo': d.setMonth(d.getMonth() + 1); break
-    default: d.setDate(d.getDate() + 7)
-  }
-  return d.toISOString().split('T')[0]
+export function daysAgo(date) {
+  if (!date) return null
+  const diff = Date.now() - new Date(date).getTime()
+  return Math.floor(diff / (1000 * 60 * 60 * 24))
+}
+
+export function daysAgoText(date) {
+  const d = daysAgo(date)
+  if (d === null) return 'Never'
+  if (d === 0) return 'Today'
+  if (d === 1) return 'Yesterday'
+  if (d < 7) return `${d}d ago`
+  if (d < 30) return `${Math.floor(d / 7)}w ago`
+  if (d < 365) return `${Math.floor(d / 30)}mo ago`
+  return `${Math.floor(d / 365)}y ago`
+}
+
+export function formatDate(date) {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+export function formatDateShort(date) {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+const INTERACTION_ICONS = {
+  email: '\u2709\uFE0F',
+  text: '\uD83D\uDCAC',
+  linkedin_message: '\uD83C\uDF10',
+  meeting: '\uD83D\uDCC5',
+  coffee: '\u2615',
+  call: '\uD83D\uDCDE',
+  event: '\uD83C\uDF89',
+  intro_made: '\uD83E\uDD1D',
+  intro_received: '\uD83E\uDD1D',
+  social_media_comment: '\uD83D\uDCF1',
+}
+
+export function interactionIcon(type) {
+  return INTERACTION_ICONS[type] || '\uD83D\uDCDD'
+}
+
+export function interactionLabel(type) {
+  if (!type) return ''
+  return type.replace(/_/g, ' ')
+}
+
+export function truncate(str, len = 100) {
+  if (!str || str.length <= len) return str
+  return str.slice(0, len) + '...'
 }

@@ -21,11 +21,53 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/contacts',
+    name: 'Contacts',
+    component: () => import('../views/ContactsListView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/contacts/new',
+    name: 'NewContact',
+    component: () => import('../views/NewContactView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/contacts/:id',
     name: 'Contact',
     component: () => import('../views/ContactView.vue'),
     meta: { requiresAuth: true }
-  }
+  },
+  {
+    path: '/contacts/:id/prep',
+    name: 'MeetingPrep',
+    component: () => import('../views/MeetingPrepView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/intros',
+    name: 'Intros',
+    component: () => import('../views/IntrosView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/import',
+    name: 'Import',
+    component: () => import('../views/ImportView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/import/onboarding',
+    name: 'Onboarding',
+    component: () => import('../views/OnboardingView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../views/SettingsView.vue'),
+    meta: { requiresAuth: true }
+  },
 ]
 
 const router = createRouter({
