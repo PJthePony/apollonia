@@ -1,14 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAuth } from '../composables/useAuth'
-import { useRouter } from 'vue-router'
 
 const { signOut } = useAuth()
-const router = useRouter()
 const showSearch = ref(false)
 const searchInput = ref(null)
-
-const goHome = () => router.push({ name: 'Dashboard' })
 
 function handleKeydown(e) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -27,12 +23,12 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 <template>
   <header class="app-header">
-    <div class="header-left" @click="goHome">
-      <div class="header-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-      </div>
+    <router-link to="/dashboard" class="app-header-brand" aria-label="Apollonia">
+      <span class="header-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </span>
       <span class="app-name">Apollonia</span>
-    </div>
+    </router-link>
 
     <nav class="header-nav">
       <router-link to="/dashboard" class="nav-link" active-class="active">Dashboard</router-link>
@@ -77,9 +73,9 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 <style scoped>
 .app-header {
-  background: var(--color-bg);
+  background: var(--color-sage-100);
   border-bottom: 1px solid var(--color-border);
-  padding: 16px 24px;
+  padding: 18px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -89,20 +85,41 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   gap: 16px;
 }
 
-.header-left {
+.app-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 39px,
+    rgba(20, 34, 53, 0.02) 39px,
+    rgba(20, 34, 53, 0.02) 40px
+  );
+}
+
+.app-header > * { position: relative; z-index: 1; }
+
+.app-header-brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-text);
   flex-shrink: 0;
+  transition: color var(--dur-2) var(--ease-out-expo);
 }
+
+.app-header-brand:hover { color: var(--color-fuchsia-800); }
 
 .header-icon {
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-lg);
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-accent-border);
+  border-radius: 8px;
+  background: rgba(212, 36, 111, 0.08);
+  border: 1px solid rgba(212, 36, 111, 0.15);
+  color: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,12 +127,11 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 .app-name {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.2rem;
-  font-weight: 600;
-  font-variation-settings: 'opsz' 36, 'WONK' 1;
-  letter-spacing: -0.03em;
-  color: var(--color-accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 24, 'WONK' 1;
+  color: inherit;
 }
 
 .header-nav {
@@ -151,16 +167,17 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   padding: 6px 12px;
   font-size: 0.75rem;
   color: var(--color-text-muted);
-  background: var(--color-surface);
+  background: var(--color-sage-50);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: color var(--dur-2) var(--ease-out-expo),
+              border-color var(--dur-2) var(--ease-out-expo);
 }
 
 .search-trigger:hover {
-  border-color: var(--color-border-light);
-  color: var(--color-text-secondary);
+  color: var(--color-accent);
+  border-color: rgba(212, 36, 111, 0.25);
 }
 
 .search-hint {
@@ -175,21 +192,24 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 .header-btn {
   width: 34px;
   height: 34px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  background: var(--color-bg);
-  color: var(--color-text-secondary);
+  background: var(--color-sage-50);
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 150ms ease;
+  transition: color var(--dur-2) var(--ease-out-expo),
+              border-color var(--dur-2) var(--ease-out-expo);
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.header-btn:hover {
-  background: var(--color-surface);
-  color: var(--color-text);
+.header-btn:hover,
+.header-btn:active {
+  color: var(--color-accent);
+  border-color: rgba(212, 36, 111, 0.25);
 }
 
 /* Search Overlay */
@@ -244,7 +264,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 }
 
 @media (max-width: 768px) {
-  .app-header { padding: 12px 16px; }
+  .app-header { padding: 14px 16px; }
   .header-nav { display: none; }
   .header-right { gap: 8px; }
   .search-trigger .search-hint { display: none; }
