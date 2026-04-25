@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "^2.95.3",
     "@tailwindcss/vite": "^4.2.2",
     "tailwindcss": "^4.2.2",
+    "tanzillo-ds": "github:PJthePony/tanzillo-ds#v1.0.0",
     "vue": "^3.4.0",
     "vue-router": "^4.6.4"
   },
