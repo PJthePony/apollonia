@@ -10,7 +10,7 @@ function goToFamily() {
   <main class="page">
     <header class="bar">
       <a class="brand" :href="FAMILY_URL">
-        <img class="icon" src="https://family.tanzillo.ai/apple-touch-icon.png" alt="" />
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         <span class="word">Apollonia</span>
       </a>
       <button class="btn ghost" @click="goToFamily">Sign in to The Family</button>
@@ -52,7 +52,7 @@ function goToFamily() {
 .page { min-height: 100dvh; background: var(--bg); display: flex; flex-direction: column; }
 .bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; background: var(--bg); backdrop-filter: saturate(140%) blur(8px); }
 .brand { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--text); }
-.icon { width: 24px; height: 24px; border-radius: var(--radius-sm); display: block; }
+.icon { width: 22px; height: 22px; display: block; color: var(--accent); }
 .word { font-family: var(--font-serif); font-weight: 600; font-size: var(--step-1); letter-spacing: -0.01em; }
 
 .hero { max-width: 720px; margin: 0 auto; padding: var(--space-9) var(--space-5) var(--space-7); text-align: center; }
